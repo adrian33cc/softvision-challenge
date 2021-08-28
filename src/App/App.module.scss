@@ -1,4 +1,102 @@
+
 .title {
-  font-size: 24px;
-  font-weight: normal;
+  font-size: 2rem;
+  font-weight: bold;
+  height: 10rem;
+  margin-bottom: 2rem;
+}
+.container{
+  max-width: 95%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 1rem;
+}
+
+.table{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 2rem;
+  padding: 2rem;
+  margin-top: 2rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+
+
+}
+@media (min-width: 768px) {
+  .table{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width:992px){
+  .container{
+    max-width: 1400px;
+  }
+  .table{
+    grid-template-columns: repeat(6,1fr);
+  }
+}
+
+
+.column{
+    background-color: rgba( 160, 160, 160 ,.1);
+  border-radius: 1rem;
+  padding:0 1rem;
+  & h1{
+    padding: 2rem;
+  }
+
+
+
+}
+.candidateCard{
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 1rem;
+  height: 14rem;
+  background-color: #fff;
+  text-align:left ;
+  h2{
+    font-size: 1.8rem;
+  }
+  p{
+    margin-top: 1rem;
+    color: #bebebe;
+    font-size: 1.6rem;
+  }
+  .buttonGroup{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  button{
+    display: inline-block;
+    border: none;
+    border-radius: .5rem;
+    color: white;
+    font-weight: bold;
+    background-color:  #FF5733 ;
+    padding: 1rem;
+    &:hover{
+      cursor: pointer;
+      background-color: #bd3d21;
+      transition: background-color .3s ease-in-out ;
+    }
+  }
+
+  &:hover{
+    border: 1px solid #bd3d21;
+    cursor: pointer;
+  }
+}
+@media (min-width: 768px) {
+  .candidateCard{
+    .buttonGroup{
+      justify-content: space-between;
+    }
+  }
 }
