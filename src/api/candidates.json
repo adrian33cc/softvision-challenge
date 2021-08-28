@@ -9,4 +9,30 @@
   "name": "John Doe",
   "step": "Entrevista inicial",
   "comments": ""
-}]
+},
+  {
+    "id": "4",
+    "name": "John Doe",
+    "step": "Oferta",
+    "comments": ""
+  },
+  {
+    "id": "1",
+    "name": "John Doe",
+    "step": "Rechazo",
+    "comments": ""
+  },
+  {
+    "id": "2",
+    "name": "John Doe",
+    "step": "Entrevista inicial",
+    "comments": ""
+  },
+  {
+    "id": "3",
+    "name": "John Doe",
+    "step": "Entrevista inicial",
+    "comments": ""
+  }
+
+]
