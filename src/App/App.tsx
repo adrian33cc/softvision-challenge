@@ -1,49 +1,70 @@
 import React, {useEffect, useState} from "react";
 
 import CardCandidate from "../components/CardCandidate";
-import {Candidate} from "../types/candidate";
+import {Candidate, steps} from "../types/candidate";
 import data from "../api/candidates.json";
 
 import styles from "./App.module.scss";
 
-const steps: string[] = [
-  "Entrevista inicial",
-  "Entrevista técnica",
-  "Oferta",
-  "Asignación",
-  "Rechazo",
-];
+const App = () => {
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [inicialStep, setInicialStep] = useState<Candidate[]>([]);
+  const [tecnicaStep, setTecnicaStep] = useState<Candidate[]>([]);
+  const [ofertaStep, setOfertaStep] = useState<Candidate[]>([]);
+  const [asignacionStep, setAsignacionStep] = useState<Candidate[]>([]);
+  const [rechazoStep, setRehazoStep] = useState<Candidate[]>([]);
 
-function App() {
-  const [candidatesI, setCandidatesI] = useState<Candidate[]>([]);
+  useEffect(() => {
+    if (candidates.length === 0) {
+      setCandidates(data);
+    }
+    setInicialStep(candidates.filter((candidate) => candidate.step === steps[0]));
+    setTecnicaStep(candidates.filter((candidate) => candidate.step === steps[1]));
+    setOfertaStep(candidates.filter((candidate) => candidate.step === steps[2]));
+    setAsignacionStep(candidates.filter((candidate) => candidate.step === steps[3]));
+    setRehazoStep(candidates.filter((candidate) => candidate.step === steps[4]));
+  }, [candidates]);
+
+  const nextStep = (item: Candidate) => {
+    const reloadCandidates = candidates.filter((candidate) => candidate.id !== item.id);
+
+    setCandidates([...reloadCandidates, item]);
+    // eslint-disable-next-line no-console
+    console.log(candidates);
+  };
 
   return (
     <main className={styles.container}>
       <div className={styles.table}>
         <div className={styles.column}>
           <h1 className={styles.title}>Entrevista Inicial</h1>
-          <CardCandidate />
-          <CardCandidate />
+          {inicialStep.map((candidate: Candidate) => (
+            <CardCandidate key={candidate.id} candidate={candidate} nextStep={nextStep} />
+          ))}
         </div>
         <div className={styles.column}>
           <h1 className={styles.title}>Entrevista Técnica</h1>
-          <CardCandidate />
+          {tecnicaStep.map((candidate: Candidate) => (
+            <CardCandidate key={candidate.id} candidate={candidate} nextStep={nextStep} />
+          ))}
         </div>
         <div className={styles.column}>
           <h1 className={styles.title}>Oferta</h1>
-          <CardCandidate />
+          {ofertaStep.map((candidate: Candidate) => (
+            <CardCandidate key={candidate.id} candidate={candidate} nextStep={nextStep} />
+          ))}
         </div>
         <div className={styles.column}>
           <h1 className={styles.title}>Asignación</h1>
-          <CardCandidate />
-        </div>
-        <div className={styles.column}>
-          <h1 className={styles.title}>Entrevista </h1>
-          <CardCandidate />
+          {asignacionStep.map((candidate: Candidate) => (
+            <CardCandidate key={candidate.id} candidate={candidate} nextStep={nextStep} />
+          ))}
         </div>
         <div className={styles.column}>
           <h1 className={styles.title}>Rechazo </h1>
-          <CardCandidate />
+          {rechazoStep.map((candidate: Candidate) => (
+            <CardCandidate key={candidate.id} candidate={candidate} nextStep={nextStep} />
+          ))}
         </div>
       </div>
     </main>
