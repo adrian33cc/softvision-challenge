@@ -6,7 +6,7 @@ import data from "../api/candidates.json";
 
 import styles from "./App.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 import NewCandidate from "../components/NewCandidate";
 
 const App = () => {
@@ -17,7 +17,7 @@ const App = () => {
   const [asignacionStep, setAsignacionStep] = useState<Candidate[]>([]);
   const [rechazoStep, setRehazoStep] = useState<Candidate[]>([]);
 
-  const [openCandidate,setOpenCandidate] = useState(true);
+  const [openCandidate, setOpenCandidate] = useState(true);
 
   useEffect(() => {
     const localCandidates: Candidate[] = JSON.parse(localStorage.getItem("candidates") as string);
@@ -51,6 +51,7 @@ const App = () => {
 
   const addCandidate = (item: Candidate) => {
     setCandidates([...candidates, item]);
+    //setOpenCandidate(!openCandidate);
   };
 
   localStorage.setItem("candidates", JSON.stringify(candidates));
@@ -63,7 +64,7 @@ const App = () => {
         <div className={styles.column}>
           <h1 className={styles.title}>Entrevista Inicial</h1>
           <button onClick={() => setOpenCandidate(!openCandidate)}>
-            <FontAwesomeIcon icon={faPlus} />
+            {openCandidate ? <FontAwesomeIcon icon={faPlus} /> : <FontAwesomeIcon icon={faTimes} />}
           </button>
           {!openCandidate ? <NewCandidate addCandidate={addCandidate} /> : null}
           <div className={styles.cardList}>
