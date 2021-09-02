@@ -8,7 +8,7 @@ interface Props {
 
 const NewCandidate: React.FC<Props> = ({addCandidate}) => {
   const newCandidate: Candidate = {
-    id: "9",
+    id: Math.random().toString(),
     step: "Entrevista inicial",
     name: "",
     comments: "",
@@ -25,8 +25,20 @@ const NewCandidate: React.FC<Props> = ({addCandidate}) => {
     <div className={styles.newCandidate}>
       <h1>Agrega un Candidato</h1>
       <input name={"name"} placeholder={"Nombre"} value={name} onChange={readNewCandidate} />
-      <input name={"comments"} placeholder={"Comentario"} value={comments} onChange={readNewCandidate} />
-      <button onClick={() => addCandidate(datosCandidate)}>Agregar</button>
+      <input
+        name={"comments"}
+        placeholder={"Comentario"}
+        value={comments}
+        onChange={readNewCandidate}
+      />
+      <button
+        onClick={() => {
+          addCandidate(datosCandidate);
+          setDatosCandidate(newCandidate);
+        }}
+      >
+        Agregar
+      </button>
     </div>
   );
 };
