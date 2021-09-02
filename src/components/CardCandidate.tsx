@@ -1,6 +1,7 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowLeft, faArrowRight} from "@fortawesome/free-solid-svg-icons";
+import {motion} from "framer-motion";
 
 import styles from "../App/App.module.scss";
 import {Candidate, steps} from "../types/candidate";
@@ -18,7 +19,7 @@ const CardCandidate: React.FC<Props> = ({candidate, nextStep}) => {
       id: candidate.id,
       step: steps[stepFuture],
       name: candidate.name,
-      comments: "Miau",
+      comments: "Algun comentario",
     };
 
     nextStep(handleCandidate);
@@ -34,7 +35,7 @@ const CardCandidate: React.FC<Props> = ({candidate, nextStep}) => {
       id: candidate.id,
       step: steps[stepFuture],
       name: candidate.name,
-      comments: "Miau",
+      comments: "Sin Comentario",
     };
 
     nextStep(handleCandidate);
@@ -44,15 +45,34 @@ const CardCandidate: React.FC<Props> = ({candidate, nextStep}) => {
     console.log(stepFuture);
   };
 
+  const container = {
+    hidden: {opacity: 0},
+    show: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className={styles.candidateCard}>
+    <motion.div
+      animate={"show"}
+      className={styles.candidateCard}
+      initial="hidden"
+      variants={container}
+    >
       <h2>{candidate.name}</h2>
       <p>{candidate.comments}</p>
       <div className={styles.buttonGroup}>
         {actualStep !== 0 ? <button onClick={handlePreviewStep}> <FontAwesomeIcon icon={faArrowLeft} /></button> : null}
-        {actualStep + 1 !== steps.length ? <button onClick={handleNextStep}><FontAwesomeIcon icon={faArrowRight} /> </button> : null}
+        {actualStep + 1 !== steps.length ? (
+          <button onClick={handleNextStep}>
+            <FontAwesomeIcon icon={faArrowRight} />{" "}
+          </button>
+        ) : null}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
