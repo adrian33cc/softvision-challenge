@@ -8,31 +8,25 @@
   "id": "doe",
   "name": "John Doe",
   "step": "Entrevista inicial",
-  "comments": ""
+  "comments": "Algun Comentario"
 },
   {
     "id": "4",
     "name": "John Doe",
     "step": "Oferta",
-    "comments": ""
+    "comments": "Algun Comentario"
   },
   {
     "id": "1",
-    "name": "John Doe",
+    "name": "Pedro",
     "step": "Rechazo",
-    "comments": ""
+    "comments": "Algun Comentario"
   },
   {
     "id": "2",
-    "name": "John Doe",
-    "step": "Entrevista inicial",
-    "comments": ""
-  },
-  {
-    "id": "3",
-    "name": "John Doe",
-    "step": "Entrevista inicial",
-    "comments": ""
+    "name": "Rosa",
+    "step": "Asignación",
+    "comments": "Algun Comentario"
   }
 
 ]
