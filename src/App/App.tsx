@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
 
 import CardCandidate from "../components/CardCandidate";
 import {Candidate, steps} from "../types/candidate";
 import data from "../api/candidates.json";
+import NewCandidate from "../components/NewCandidate";
 
 import styles from "./App.module.scss";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus, faTimes} from "@fortawesome/free-solid-svg-icons";
-import NewCandidate from "../components/NewCandidate";
 
 const App = () => {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -19,21 +19,35 @@ const App = () => {
 
   const [openCandidate, setOpenCandidate] = useState(true);
 
-  useEffect(() => {
-    const localCandidates: Candidate[] = JSON.parse(localStorage.getItem("candidates") as string);
+  const getCandidates = async () => {
+    const candidatesStorage: string = localStorage.getItem("candidates") as string;
 
-    if (candidates.length === 0) {
-      if (localCandidates.length === 0) {
-        setCandidates(data);
-      } else {
-        setCandidates(localCandidates);
-      }
+    if (candidatesStorage) {
+      setCandidates(JSON.parse(candidatesStorage));
+    } else {
+      setCandidates(data);
+      //localStorage.setItem("candidates", JSON.stringify(candidates));
     }
+  };
+
+  useEffect(() => {
+    const candidatesStorage: string = localStorage.getItem("candidates") as string;
+
+    if (candidatesStorage === null) {
+      setCandidates(data);
+    } else {
+      setCandidates(JSON.parse(candidatesStorage));
+    }
+    console.log(candidates);
+  }, []);
+
+  useEffect(() => {
     setInicialStep(candidates.filter((candidate: Candidate) => candidate.step === steps[0]));
     setTecnicaStep(candidates.filter((candidate: Candidate) => candidate.step === steps[1]));
     setOfertaStep(candidates.filter((candidate: Candidate) => candidate.step === steps[2]));
     setAsignacionStep(candidates.filter((candidate: Candidate) => candidate.step === steps[3]));
     setRehazoStep(candidates.filter((candidate: Candidate) => candidate.step === steps[4]));
+    localStorage.setItem("candidates", JSON.stringify(candidates));
   }, [candidates]);
 
   const nextStep = (item: Candidate) => {
@@ -47,14 +61,16 @@ const App = () => {
     });
 
     setCandidates(modifyCandidates);
+    //localStorage.setItem("candidates", JSON.stringify(candidates));
   };
 
   const addCandidate = (item: Candidate) => {
     setCandidates([...candidates, item]);
     //setOpenCandidate(!openCandidate);
+    //localStorage.setItem("candidates", JSON.stringify(candidates));
   };
 
-  localStorage.setItem("candidates", JSON.stringify(candidates));
+  //localStorage.setItem("candidates", JSON.stringify(candidates));
 
   // @ts-ignore
   // @ts-ignore
@@ -118,7 +134,6 @@ const App = () => {
           )}
         </div>
       </div>
-
     </main>
   );
 };
